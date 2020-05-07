@@ -1,0 +1,279 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "customermaintenaceapi",
+    "x-lastModified": "07 May 2020 11:03:03 am (Central Daylight Time)"
+  },
+  "paths": {
+    "/customermaint": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response - returns customer record",
+            "schema": {
+              "$ref": "#/definitions/customerrecordschema"
+            },
+            "examples": {
+              "application/json": {
+                "customer_name": "Frozen Hiker Outfitters",
+                "location": {
+                  "street1": "13 Main Street",
+                  "street2": "",
+                  "city": "Ely",
+                  "state": "MN",
+                  "zipcode": "55731"
+                },
+                "contact": {
+                  "contactname": "Joe Smith",
+                  "contactphone": "763-111-1111",
+                  "contactemail": "joe@fho.com"
+                },
+                "id": "fho-01"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "customername",
+            "in": "query",
+            "description": "Name of customer to lookup",
+            "required": true,
+            "type": "string",
+            "format": ""
+          }
+        ],
+        "operationId": "getCustomermaint",
+        "description": "Looks up customer details based on name"
+      },
+      "post": {
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response - new customer",
+            "schema": {
+              "$ref": "#/definitions/NewCustomerCreationStatusSchema"
+            },
+            "examples": {
+              "application/json": {
+                "creationstatus": "message",
+                "customerid": "abc-123"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Customer to be created",
+            "schema": {
+              "$ref": "#/definitions/NewCustomerSchema"
+            }
+          }
+        ],
+        "operationId": "postCustomermaint",
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Create new customer"
+      },
+      "put": {
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response - customer update",
+            "schema": {
+              "$ref": "#/definitions/CustomerUpdateStatusSchema"
+            },
+            "examples": {
+              "application/json": {
+                "updatestatus": "message"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/customerrecordschema"
+            }
+          }
+        ],
+        "operationId": "putCustomermaint",
+        "description": "Update Customer",
+        "consumes": [
+          "application/json"
+        ]
+      },
+      "delete": {
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "$ref": "#/definitions/CustomerUpdateStatusSchema"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "customerid",
+            "in": "query",
+            "description": "ID of customer to be deleted",
+            "required": true,
+            "type": "string",
+            "format": ""
+          }
+        ],
+        "operationId": "deleteCustomermaint",
+        "description": "Delete Customer"
+      }
+    }
+  },
+  "definitions": {
+    "customerrecordschema": {
+      "type": "object",
+      "properties": {
+        "customer_name": {
+          "type": "string",
+          "default": "Frozen Hiker Outfitters"
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "street1": {
+              "type": "string",
+              "default": "13 Main Street"
+            },
+            "street2": {
+              "type": "string",
+              "default": ""
+            },
+            "city": {
+              "type": "string",
+              "default": "Ely"
+            },
+            "state": {
+              "type": "string",
+              "default": "MN"
+            },
+            "zipcode": {
+              "type": "string",
+              "default": "55731"
+            }
+          }
+        },
+        "contact": {
+          "type": "object",
+          "properties": {
+            "contactname": {
+              "type": "string",
+              "default": "Joe Smith"
+            },
+            "contactphone": {
+              "type": "string",
+              "default": "763-111-1111"
+            },
+            "contactemail": {
+              "type": "string",
+              "format": "email",
+              "default": "joe@fho.com"
+            }
+          }
+        },
+        "id": {
+          "type": "string",
+          "default": "fho-01"
+        }
+      }
+    },
+    "NewCustomerSchema": {
+      "type": "object",
+      "properties": {
+        "customer_name": {
+          "type": "string",
+          "default": "Frozen Hiker Outfitters"
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "street1": {
+              "type": "string",
+              "default": "13 Main Street"
+            },
+            "street2": {
+              "type": "string",
+              "default": ""
+            },
+            "city": {
+              "type": "string",
+              "default": "Ely"
+            },
+            "state": {
+              "type": "string",
+              "default": "MN"
+            },
+            "zipcode": {
+              "type": "string",
+              "default": "55731"
+            }
+          }
+        },
+        "contact": {
+          "type": "object",
+          "properties": {
+            "contactname": {
+              "type": "string",
+              "default": "Joe Smith"
+            },
+            "contactphone": {
+              "type": "string",
+              "default": "763-111-1111"
+            },
+            "contactemail": {
+              "type": "string",
+              "format": "email",
+              "default": "joe@fho.com"
+            }
+          }
+        }
+      }
+    },
+    "NewCustomerCreationStatusSchema": {
+      "type": "object",
+      "properties": {
+        "creationstatus": {
+          "type": "string",
+          "default": "message"
+        },
+        "customerid": {
+          "type": "string",
+          "default": "abc-123"
+        }
+      }
+    },
+    "CustomerUpdateStatusSchema": {
+      "type": "object",
+      "properties": {
+        "updatestatus": {
+          "type": "string",
+          "default": "message"
+        }
+      }
+    }
+  }
+}
